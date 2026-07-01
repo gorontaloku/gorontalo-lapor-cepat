@@ -405,18 +405,41 @@ function SectionCard({ title, desc, children }: { title: string; desc?: string; 
   );
 }
 
+function WhatsAppText({ text }: { text: string }) {
+  // Render *bold* segments as <strong> so preview matches how WhatsApp displays it.
+  const lines = text.split("\n");
+  return (
+    <div className="whitespace-pre-wrap break-words text-[13px] sm:text-sm leading-relaxed text-foreground font-sans">
+      {lines.map((line, i) => {
+        const parts = line.split(/(\*[^*\n]+\*)/g);
+        return (
+          <div key={i} className={line === "" ? "h-2" : undefined}>
+            {parts.map((part, j) =>
+              part.startsWith("*") && part.endsWith("*") && part.length > 2 ? (
+                <strong key={j} className="font-semibold text-foreground">{part.slice(1, -1)}</strong>
+              ) : (
+                <span key={j}>{part}</span>
+              )
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 function PreviewBox({ text }: { text: string }) {
   return (
-    <Card className="shadow-card border-primary/20">
-      <CardHeader className="pb-2">
+    <Card className="shadow-card border-primary/20 bg-white">
+      <CardHeader className="pb-2 border-b bg-gradient-to-r from-primary/5 to-transparent">
         <CardTitle className="text-sm text-primary flex items-center gap-2">
           <Eye className="h-4 w-4" /> Preview Laporan
         </CardTitle>
       </CardHeader>
-      <CardContent>
-        <pre className="whitespace-pre-wrap text-xs leading-relaxed font-sans bg-muted/40 rounded-md p-3 max-h-[60vh] overflow-auto">
-{text}
-        </pre>
+      <CardContent className="p-4">
+        <div className="rounded-lg bg-muted/30 border border-border/60 p-4 max-h-[60vh] overflow-auto">
+          <WhatsAppText text={text} />
+        </div>
       </CardContent>
     </Card>
   );
