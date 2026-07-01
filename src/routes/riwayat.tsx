@@ -74,7 +74,7 @@ function RiwayatPage() {
       },
       { namaKepala: pengaturan?.nama_kepala },
     );
-    window.open(buildWhatsAppUrl(text, pengaturan?.wa_tujuan), "_blank");
+    window.open(buildWhatsAppUrl(text, pengaturan?.wa_tujuan ?? undefined), "_blank");
   };
 
   const previewLaporan = data.find((l) => l.id === previewId);

@@ -9,11 +9,24 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RiwayatRouteImport } from './routes/riwayat'
+import { Route as PengaturanRouteImport } from './routes/pengaturan'
 import { Route as PegawaiRouteImport } from './routes/pegawai'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LaporanBaruRouteImport } from './routes/laporan.baru'
 
+const RiwayatRoute = RiwayatRouteImport.update({
+  id: '/riwayat',
+  path: '/riwayat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PengaturanRoute = PengaturanRouteImport.update({
+  id: '/pengaturan',
+  path: '/pengaturan',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PegawaiRoute = PegawaiRouteImport.update({
   id: '/pegawai',
   path: '/pegawai',
@@ -34,18 +47,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LaporanBaruRoute = LaporanBaruRouteImport.update({
+  id: '/laporan/baru',
+  path: '/laporan/baru',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/pegawai': typeof PegawaiRoute
+  '/pengaturan': typeof PengaturanRoute
+  '/riwayat': typeof RiwayatRoute
+  '/laporan/baru': typeof LaporanBaruRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/pegawai': typeof PegawaiRoute
+  '/pengaturan': typeof PengaturanRoute
+  '/riwayat': typeof RiwayatRoute
+  '/laporan/baru': typeof LaporanBaruRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +77,38 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
   '/pegawai': typeof PegawaiRoute
+  '/pengaturan': typeof PengaturanRoute
+  '/riwayat': typeof RiwayatRoute
+  '/laporan/baru': typeof LaporanBaruRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/dashboard' | '/pegawai'
+  fullPaths:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/pegawai'
+    | '/pengaturan'
+    | '/riwayat'
+    | '/laporan/baru'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/dashboard' | '/pegawai'
-  id: '__root__' | '/' | '/auth' | '/dashboard' | '/pegawai'
+  to:
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/pegawai'
+    | '/pengaturan'
+    | '/riwayat'
+    | '/laporan/baru'
+  id:
+    | '__root__'
+    | '/'
+    | '/auth'
+    | '/dashboard'
+    | '/pegawai'
+    | '/pengaturan'
+    | '/riwayat'
+    | '/laporan/baru'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,10 +116,27 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRoute
   PegawaiRoute: typeof PegawaiRoute
+  PengaturanRoute: typeof PengaturanRoute
+  RiwayatRoute: typeof RiwayatRoute
+  LaporanBaruRoute: typeof LaporanBaruRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/riwayat': {
+      id: '/riwayat'
+      path: '/riwayat'
+      fullPath: '/riwayat'
+      preLoaderRoute: typeof RiwayatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pengaturan': {
+      id: '/pengaturan'
+      path: '/pengaturan'
+      fullPath: '/pengaturan'
+      preLoaderRoute: typeof PengaturanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pegawai': {
       id: '/pegawai'
       path: '/pegawai'
@@ -99,6 +165,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/laporan/baru': {
+      id: '/laporan/baru'
+      path: '/laporan/baru'
+      fullPath: '/laporan/baru'
+      preLoaderRoute: typeof LaporanBaruRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +180,9 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   DashboardRoute: DashboardRoute,
   PegawaiRoute: PegawaiRoute,
+  PengaturanRoute: PengaturanRoute,
+  RiwayatRoute: RiwayatRoute,
+  LaporanBaruRoute: LaporanBaruRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
