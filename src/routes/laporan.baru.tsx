@@ -116,7 +116,7 @@ function LaporanBaru() {
     tanggal,
     jam: jam || null,
     tempat: tempat.map((t) => t.trim()).filter(Boolean),
-    pelaksana: pelaksanaList.map((p) => ({ nama: p.nama, pangkat: p.pangkat, nip: p.nip })),
+    pelaksana: pelaksanaList.map((p) => ({ nama: p.nama, jabatan: p.jabatan, pangkat: p.pangkat, nip: p.nip })),
     seksi: seksi || pelaksanaList[0]?.seksi || null,
     hasil_kegiatan: hasil,
     sumber_dana: sumberDana || null,
