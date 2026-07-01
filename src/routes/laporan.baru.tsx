@@ -182,7 +182,12 @@ function LaporanBaru() {
         data: {
           poin: aiPoin,
           namaKegiatan: nama_kegiatan || undefined,
+          hariTanggal: tanggal ? new Date(tanggal + "T00:00:00").toLocaleDateString("id-ID", { weekday: "long", day: "2-digit", month: "long", year: "numeric" }) : undefined,
+          jam: jam || undefined,
           tempat: laporanData.tempat.length ? laporanData.tempat : undefined,
+          pelaksana: pelaksanaList.length ? pelaksanaList.map((p) => `${p.nama}${p.jabatan ? ` (${p.jabatan})` : ""}`) : undefined,
+          seksi: laporanData.seksi || undefined,
+          sumberDana: sumberDana || undefined,
         },
       });
       setHasil(res.text);
