@@ -417,7 +417,6 @@ function PreviewBox({ text }: { text: string }) {
   );
 }
 
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
 function AiDialog({
   open, onOpenChange, poin, setPoin, onRun, busy,
