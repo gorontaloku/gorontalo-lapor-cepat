@@ -6,7 +6,7 @@ export interface LaporanData {
   tanggal: string; // yyyy-mm-dd
   jam: string | null; // HH:mm
   tempat: string[];
-  pelaksana: { nama: string; pangkat?: string | null; nip?: string | null }[];
+  pelaksana: { nama: string; jabatan?: string | null; pangkat?: string | null; nip?: string | null }[];
   seksi: string | null;
   hasil_kegiatan: string | null;
   sumber_dana: string | null;
@@ -32,31 +32,31 @@ export function buildLaporanText(l: LaporanData, opts?: { namaKepala?: string })
   const pelaksana = l.pelaksana.length
     ? l.pelaksana
         .map((p, i) => {
-          const detail = [p.pangkat, p.nip].filter(Boolean).join(" / ");
-          return `${i + 1}. ${p.nama}${detail ? ` (${detail})` : ""}`;
+          const jab = p.jabatan?.trim();
+          return `${i + 1}. ${p.nama}${jab ? ` (${jab})` : ""}`;
         })
         .join("\n")
     : "-";
 
-  return `Kepada Yth : ${kepala}
-Dari       : ${seksi}
+  return `*Kepada Yth : ${kepala}*
+*Dari : ${seksi}*
 
-A. KEGIATAN
-${l.nama_kegiatan}
+*A. KEGIATAN*
+${l.nama_kegiatan || "-"}
 
-B. WAKTU & TEMPAT
+*B. WAKTU & TEMPAT*
 Hari/Tanggal : ${hari}
-Jam          : ${jam}
-Tempat       :
+Jam : ${jam}
+Tempat :
 ${tempat}
 
-C. PELAKSANA
+*C. PELAKSANA*
 ${pelaksana}
 
-D. HASIL KEGIATAN
+*D. HASIL KEGIATAN*
 ${l.hasil_kegiatan?.trim() || "-"}
 
-E. SUMBER DANA
+*E. SUMBER DANA*
 ${l.sumber_dana || "-"}
 
 #IndonesiaBersinar`;
