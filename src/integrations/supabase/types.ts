@@ -14,7 +14,147 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      laporan: {
+        Row: {
+          created_at: string
+          hasil_kegiatan: string | null
+          id: string
+          jam: string | null
+          nama_kegiatan: string
+          pelaksana: Json
+          pembuat_nama: string | null
+          seksi: string | null
+          status: string
+          sumber_dana: string | null
+          tanggal: string
+          tempat: Json
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          hasil_kegiatan?: string | null
+          id?: string
+          jam?: string | null
+          nama_kegiatan: string
+          pelaksana?: Json
+          pembuat_nama?: string | null
+          seksi?: string | null
+          status?: string
+          sumber_dana?: string | null
+          tanggal: string
+          tempat?: Json
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          hasil_kegiatan?: string | null
+          id?: string
+          jam?: string | null
+          nama_kegiatan?: string
+          pelaksana?: Json
+          pembuat_nama?: string | null
+          seksi?: string | null
+          status?: string
+          sumber_dana?: string | null
+          tanggal?: string
+          tempat?: Json
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      pegawai: {
+        Row: {
+          aktif: boolean
+          created_at: string
+          id: string
+          jabatan: string | null
+          nama: string
+          nip: string | null
+          pangkat: string | null
+          seksi: string | null
+          updated_at: string
+          urutan_hierarki: number
+        }
+        Insert: {
+          aktif?: boolean
+          created_at?: string
+          id?: string
+          jabatan?: string | null
+          nama: string
+          nip?: string | null
+          pangkat?: string | null
+          seksi?: string | null
+          updated_at?: string
+          urutan_hierarki?: number
+        }
+        Update: {
+          aktif?: boolean
+          created_at?: string
+          id?: string
+          jabatan?: string | null
+          nama?: string
+          nip?: string | null
+          pangkat?: string | null
+          seksi?: string | null
+          updated_at?: string
+          urutan_hierarki?: number
+        }
+        Relationships: []
+      }
+      pengaturan: {
+        Row: {
+          id: number
+          logo_url: string | null
+          nama_instansi: string
+          nama_kepala: string
+          template_laporan: string | null
+          updated_at: string
+          wa_tujuan: string | null
+        }
+        Insert: {
+          id?: number
+          logo_url?: string | null
+          nama_instansi?: string
+          nama_kepala?: string
+          template_laporan?: string | null
+          updated_at?: string
+          wa_tujuan?: string | null
+        }
+        Update: {
+          id?: number
+          logo_url?: string | null
+          nama_instansi?: string
+          nama_kepala?: string
+          template_laporan?: string | null
+          updated_at?: string
+          wa_tujuan?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          nama: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          nama?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nama?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
