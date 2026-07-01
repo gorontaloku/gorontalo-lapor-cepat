@@ -483,9 +483,9 @@ function MobilePreview({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-lg">
         <DialogHeader><DialogTitle>Preview Laporan</DialogTitle></DialogHeader>
-        <pre className="whitespace-pre-wrap text-xs font-sans bg-muted/40 rounded-md p-3 max-h-[60vh] overflow-auto">
-{text}
-        </pre>
+        <div className="rounded-lg bg-muted/30 border border-border/60 p-4 max-h-[60vh] overflow-auto">
+          <WhatsAppText text={text} />
+        </div>
         <DialogFooter>
           <Button variant="outline" onClick={onCopy}><Copy className="h-4 w-4" /> Copy</Button>
           <Button onClick={onSend}><Send className="h-4 w-4" /> Kirim WhatsApp</Button>
