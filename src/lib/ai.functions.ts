@@ -6,12 +6,14 @@ import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 const InputSchema = z.object({
   poin: z.string().min(1),
   namaKegiatan: z.string().optional(),
+  jenisKegiatan: z.string().optional(),
   hariTanggal: z.string().optional(),
   jam: z.string().optional(),
   tempat: z.array(z.string()).optional(),
   pelaksana: z.array(z.string()).optional(),
   seksi: z.string().optional(),
   sumberDana: z.string().optional(),
+  dataDinamis: z.record(z.string(), z.any()).optional(),
 });
 
 export const generateHasilKegiatan = createServerFn({ method: "POST" })
