@@ -15,6 +15,7 @@ import { Route as PegawaiRouteImport } from './routes/pegawai'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LaporanSpjRouteImport } from './routes/laporan.spj'
 import { Route as LaporanPreviewRouteImport } from './routes/laporan.preview'
 import { Route as LaporanBaruRouteImport } from './routes/laporan.baru'
 
@@ -48,6 +49,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LaporanSpjRoute = LaporanSpjRouteImport.update({
+  id: '/laporan/spj',
+  path: '/laporan/spj',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LaporanPreviewRoute = LaporanPreviewRouteImport.update({
   id: '/laporan/preview',
   path: '/laporan/preview',
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/riwayat': typeof RiwayatRoute
   '/laporan/baru': typeof LaporanBaruRoute
   '/laporan/preview': typeof LaporanPreviewRoute
+  '/laporan/spj': typeof LaporanSpjRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/riwayat': typeof RiwayatRoute
   '/laporan/baru': typeof LaporanBaruRoute
   '/laporan/preview': typeof LaporanPreviewRoute
+  '/laporan/spj': typeof LaporanSpjRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/riwayat': typeof RiwayatRoute
   '/laporan/baru': typeof LaporanBaruRoute
   '/laporan/preview': typeof LaporanPreviewRoute
+  '/laporan/spj': typeof LaporanSpjRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/riwayat'
     | '/laporan/baru'
     | '/laporan/preview'
+    | '/laporan/spj'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/riwayat'
     | '/laporan/baru'
     | '/laporan/preview'
+    | '/laporan/spj'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/riwayat'
     | '/laporan/baru'
     | '/laporan/preview'
+    | '/laporan/spj'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   RiwayatRoute: typeof RiwayatRoute
   LaporanBaruRoute: typeof LaporanBaruRoute
   LaporanPreviewRoute: typeof LaporanPreviewRoute
+  LaporanSpjRoute: typeof LaporanSpjRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -178,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/laporan/spj': {
+      id: '/laporan/spj'
+      path: '/laporan/spj'
+      fullPath: '/laporan/spj'
+      preLoaderRoute: typeof LaporanSpjRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/laporan/preview': {
       id: '/laporan/preview'
       path: '/laporan/preview'
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   RiwayatRoute: RiwayatRoute,
   LaporanBaruRoute: LaporanBaruRoute,
   LaporanPreviewRoute: LaporanPreviewRoute,
+  LaporanSpjRoute: LaporanSpjRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
