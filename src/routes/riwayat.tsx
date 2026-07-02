@@ -195,3 +195,18 @@ function RiwayatPage() {
     </AppShell>
   );
 }
+
+function StatusWA({ s }: { s: string }) {
+  const map: Record<string, { label: string; cls: string }> = {
+    draft: { label: "Draft", cls: "bg-muted text-muted-foreground" },
+    sudah_dibuat: { label: "Sudah Dibuat", cls: "bg-warning/20 text-warning-foreground" },
+    sudah_dikirim: { label: "Sudah Dikirim", cls: "bg-success/15 text-success" },
+    terkirim: { label: "Sudah Dikirim", cls: "bg-success/15 text-success" },
+  };
+  const v = map[s] ?? map.draft;
+  return <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${v.cls}`}>{v.label}</span>;
+}
+function StatusSPJ({ s }: { s: string }) {
+  const done = s === "sudah_dibuat";
+  return <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${done ? "bg-success/15 text-success" : "bg-muted text-muted-foreground"}`}>{done ? "Sudah Dibuat" : "Belum Dibuat"}</span>;
+}
