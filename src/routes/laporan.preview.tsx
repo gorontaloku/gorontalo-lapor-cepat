@@ -121,7 +121,7 @@ function PreviewPage() {
         document.body.appendChild(a); a.click(); a.remove();
       } catch {}
     }
-    const url = buildWhatsAppUrl(text, pengaturan?.wa_tujuan);
+    const url = buildWhatsAppUrl(text, pengaturan?.wa_tujuan ?? undefined);
     window.open(url, "_blank");
     setTimeout(() => setConfirmSent(true), 2000);
   };
