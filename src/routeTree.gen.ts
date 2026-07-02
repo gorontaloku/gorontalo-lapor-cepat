@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as RiwayatRouteImport } from './routes/riwayat'
 import { Route as PengaturanRouteImport } from './routes/pengaturan'
 import { Route as PegawaiRouteImport } from './routes/pegawai'
+import { Route as KelolaUserRouteImport } from './routes/kelola-user'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
@@ -32,6 +33,11 @@ const PengaturanRoute = PengaturanRouteImport.update({
 const PegawaiRoute = PegawaiRouteImport.update({
   id: '/pegawai',
   path: '/pegawai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KelolaUserRoute = KelolaUserRouteImport.update({
+  id: '/kelola-user',
+  path: '/kelola-user',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -69,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/kelola-user': typeof KelolaUserRoute
   '/pegawai': typeof PegawaiRoute
   '/pengaturan': typeof PengaturanRoute
   '/riwayat': typeof RiwayatRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/kelola-user': typeof KelolaUserRoute
   '/pegawai': typeof PegawaiRoute
   '/pengaturan': typeof PengaturanRoute
   '/riwayat': typeof RiwayatRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/kelola-user': typeof KelolaUserRoute
   '/pegawai': typeof PegawaiRoute
   '/pengaturan': typeof PengaturanRoute
   '/riwayat': typeof RiwayatRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/kelola-user'
     | '/pegawai'
     | '/pengaturan'
     | '/riwayat'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/kelola-user'
     | '/pegawai'
     | '/pengaturan'
     | '/riwayat'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/kelola-user'
     | '/pegawai'
     | '/pengaturan'
     | '/riwayat'
@@ -139,6 +151,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRoute
+  KelolaUserRoute: typeof KelolaUserRoute
   PegawaiRoute: typeof PegawaiRoute
   PengaturanRoute: typeof PengaturanRoute
   RiwayatRoute: typeof RiwayatRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/pegawai'
       fullPath: '/pegawai'
       preLoaderRoute: typeof PegawaiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kelola-user': {
+      id: '/kelola-user'
+      path: '/kelola-user'
+      fullPath: '/kelola-user'
+      preLoaderRoute: typeof KelolaUserRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -219,6 +239,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   DashboardRoute: DashboardRoute,
+  KelolaUserRoute: KelolaUserRoute,
   PegawaiRoute: PegawaiRoute,
   PengaturanRoute: PengaturanRoute,
   RiwayatRoute: RiwayatRoute,
