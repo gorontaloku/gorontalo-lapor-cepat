@@ -171,7 +171,7 @@ function PegawaiPage() {
                   {filtered.map((p) => (
                     <tr key={p.id} className="border-t hover:bg-muted/30">
                       <td className="px-4 py-3 text-muted-foreground">{p.urutan_hierarki}</td>
-                      <td className="px-4 py-3 font-medium">{p.nama}</td>
+                      <td className="px-4 py-3 font-medium">{p.nama}{p.gelar ? `, ${p.gelar}` : ""}</td>
                       <td className="px-4 py-3 text-muted-foreground">{p.nip || "-"}</td>
                       <td className="px-4 py-3">{p.pangkat || "-"}</td>
                       <td className="px-4 py-3">{p.jabatan || "-"}</td>
