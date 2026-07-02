@@ -46,6 +46,8 @@ const EMPTY: Omit<Pegawai, "id"> = {
 };
 
 function PegawaiPage() {
+  const { data: role } = useMyRole();
+  const canDelete = role === "super_admin";
   const qc = useQueryClient();
   const [q, setQ] = useState("");
   const [editOpen, setEditOpen] = useState(false);
