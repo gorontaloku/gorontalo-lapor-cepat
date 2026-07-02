@@ -216,6 +216,10 @@ function PegawaiPage() {
               <Input value={form.nama} onChange={(e) => setForm({ ...form, nama: e.target.value })} required />
             </div>
             <div>
+              <Label>Gelar</Label>
+              <Input value={form.gelar ?? ""} onChange={(e) => setForm({ ...form, gelar: e.target.value })} placeholder="S.KM / S.Pd., M.M." />
+            </div>
+            <div>
               <Label>NIP</Label>
               <Input value={form.nip ?? ""} onChange={(e) => setForm({ ...form, nip: e.target.value })} />
             </div>
