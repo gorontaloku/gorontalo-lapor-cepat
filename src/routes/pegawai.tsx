@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AppShell, RequireAuth } from "@/components/AppShell";
+import { RequireRole, useMyRole } from "@/lib/roles";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,7 +22,9 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/pegawai")({
   component: () => (
     <RequireAuth>
-      <PegawaiPage />
+      <RequireRole allowed={["super_admin", "admin"]}>
+        <PegawaiPage />
+      </RequireRole>
     </RequireAuth>
   ),
 });
