@@ -29,6 +29,7 @@ export const Route = createFileRoute("/pegawai")({
 interface Pegawai {
   id: string;
   nama: string;
+  gelar: string | null;
   nip: string | null;
   pangkat: string | null;
   jabatan: string | null;
@@ -38,7 +39,7 @@ interface Pegawai {
 }
 
 const EMPTY: Omit<Pegawai, "id"> = {
-  nama: "", nip: "", pangkat: "", jabatan: "", seksi: "", urutan_hierarki: 999, aktif: true,
+  nama: "", gelar: "", nip: "", pangkat: "", jabatan: "", seksi: "", urutan_hierarki: 999, aktif: true,
 };
 
 function PegawaiPage() {
