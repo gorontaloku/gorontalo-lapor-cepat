@@ -117,18 +117,19 @@ function RiwayatPage() {
                     <th className="text-left px-4 py-3 font-medium">Tanggal</th>
                     <th className="text-left px-4 py-3 font-medium">Nama Kegiatan</th>
                     <th className="text-left px-4 py-3 font-medium">Pembuat</th>
-                    <th className="text-left px-4 py-3 font-medium">Status</th>
+                    <th className="text-left px-4 py-3 font-medium">Status WA</th>
+                    <th className="text-left px-4 py-3 font-medium">Status SPJ</th>
                     <th className="text-right px-4 py-3 font-medium w-40">Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
                   {isLoading && (
-                    <tr><td colSpan={5} className="px-4 py-10 text-center">
+                    <tr><td colSpan={6} className="px-4 py-10 text-center">
                       <Loader2 className="h-5 w-5 animate-spin inline" />
                     </td></tr>
                   )}
                   {!isLoading && filtered.length === 0 && (
-                    <tr><td colSpan={5} className="px-4 py-10 text-center text-muted-foreground">
+                    <tr><td colSpan={6} className="px-4 py-10 text-center text-muted-foreground">
                       {q ? "Tidak ada hasil." : "Belum ada laporan."}
                     </td></tr>
                   )}
@@ -137,15 +138,8 @@ function RiwayatPage() {
                       <td className="px-4 py-3 whitespace-nowrap">{formatTanggalIndo(l.tanggal)}</td>
                       <td className="px-4 py-3 font-medium">{l.nama_kegiatan}</td>
                       <td className="px-4 py-3 text-muted-foreground">{l.pembuat_nama || "-"}</td>
-                      <td className="px-4 py-3">
-                        <span className={
-                          l.status === "terkirim"
-                            ? "inline-flex items-center rounded-full bg-success/15 text-success px-2 py-0.5 text-xs font-medium"
-                            : "inline-flex items-center rounded-full bg-warning/20 text-warning-foreground px-2 py-0.5 text-xs font-medium"
-                        }>
-                          {l.status === "terkirim" ? "Terkirim" : "Draft"}
-                        </span>
-                      </td>
+                      <td className="px-4 py-3"><StatusWA s={l.status_wa ?? l.status} /></td>
+                      <td className="px-4 py-3"><StatusSPJ s={l.status_spj ?? "belum"} /></td>
                       <td className="px-4 py-3 text-right">
                         <div className="flex justify-end gap-1">
                           <Button size="icon" variant="ghost" onClick={() => setPreviewId(l.id)}><Eye className="h-4 w-4" /></Button>
