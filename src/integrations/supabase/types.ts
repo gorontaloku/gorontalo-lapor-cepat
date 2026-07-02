@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      dokumentasi: {
+        Row: {
+          caption: string | null
+          created_at: string
+          dipilih_wa: boolean
+          file_name: string | null
+          file_path: string
+          id: string
+          laporan_id: string
+          mime_type: string | null
+          ukuran: number | null
+          updated_at: string
+          urutan: number
+          user_id: string | null
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          dipilih_wa?: boolean
+          file_name?: string | null
+          file_path: string
+          id?: string
+          laporan_id: string
+          mime_type?: string | null
+          ukuran?: number | null
+          updated_at?: string
+          urutan?: number
+          user_id?: string | null
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          dipilih_wa?: boolean
+          file_name?: string | null
+          file_path?: string
+          id?: string
+          laporan_id?: string
+          mime_type?: string | null
+          ukuran?: number | null
+          updated_at?: string
+          urutan?: number
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "dokumentasi_laporan_id_fkey"
+            columns: ["laporan_id"]
+            isOneToOne: false
+            referencedRelation: "laporan"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "dokumentasi_user_profile_fk"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       laporan: {
         Row: {
           created_at: string
@@ -87,7 +147,15 @@ export type Database = {
           updated_at?: string
           user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "laporan_user_profile_fk"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       pegawai: {
         Row: {
@@ -208,6 +276,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      current_user_can_view_all_reports: { Args: never; Returns: boolean }
+      current_user_is_admin: { Args: never; Returns: boolean }
       get_my_role: {
         Args: never
         Returns: Database["public"]["Enums"]["app_role"]
