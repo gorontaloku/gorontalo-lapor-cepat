@@ -11,10 +11,14 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Loader2, Save } from "lucide-react";
 
+import { RequireRole } from "@/lib/roles";
+
 export const Route = createFileRoute("/pengaturan")({
   component: () => (
     <RequireAuth>
-      <PengaturanPage />
+      <RequireRole allowed={["super_admin"]}>
+        <PengaturanPage />
+      </RequireRole>
     </RequireAuth>
   ),
 });

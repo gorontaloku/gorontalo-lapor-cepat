@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RiwayatRouteImport } from './routes/riwayat'
+import { Route as ProfilRouteImport } from './routes/profil'
 import { Route as PengaturanRouteImport } from './routes/pengaturan'
 import { Route as PegawaiRouteImport } from './routes/pegawai'
 import { Route as KelolaUserRouteImport } from './routes/kelola-user'
@@ -23,6 +24,11 @@ import { Route as LaporanBaruRouteImport } from './routes/laporan.baru'
 const RiwayatRoute = RiwayatRouteImport.update({
   id: '/riwayat',
   path: '/riwayat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfilRoute = ProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PengaturanRoute = PengaturanRouteImport.update({
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/kelola-user': typeof KelolaUserRoute
   '/pegawai': typeof PegawaiRoute
   '/pengaturan': typeof PengaturanRoute
+  '/profil': typeof ProfilRoute
   '/riwayat': typeof RiwayatRoute
   '/laporan/baru': typeof LaporanBaruRoute
   '/laporan/preview': typeof LaporanPreviewRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/kelola-user': typeof KelolaUserRoute
   '/pegawai': typeof PegawaiRoute
   '/pengaturan': typeof PengaturanRoute
+  '/profil': typeof ProfilRoute
   '/riwayat': typeof RiwayatRoute
   '/laporan/baru': typeof LaporanBaruRoute
   '/laporan/preview': typeof LaporanPreviewRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/kelola-user': typeof KelolaUserRoute
   '/pegawai': typeof PegawaiRoute
   '/pengaturan': typeof PengaturanRoute
+  '/profil': typeof ProfilRoute
   '/riwayat': typeof RiwayatRoute
   '/laporan/baru': typeof LaporanBaruRoute
   '/laporan/preview': typeof LaporanPreviewRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/kelola-user'
     | '/pegawai'
     | '/pengaturan'
+    | '/profil'
     | '/riwayat'
     | '/laporan/baru'
     | '/laporan/preview'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/kelola-user'
     | '/pegawai'
     | '/pengaturan'
+    | '/profil'
     | '/riwayat'
     | '/laporan/baru'
     | '/laporan/preview'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/kelola-user'
     | '/pegawai'
     | '/pengaturan'
+    | '/profil'
     | '/riwayat'
     | '/laporan/baru'
     | '/laporan/preview'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   KelolaUserRoute: typeof KelolaUserRoute
   PegawaiRoute: typeof PegawaiRoute
   PengaturanRoute: typeof PengaturanRoute
+  ProfilRoute: typeof ProfilRoute
   RiwayatRoute: typeof RiwayatRoute
   LaporanBaruRoute: typeof LaporanBaruRoute
   LaporanPreviewRoute: typeof LaporanPreviewRoute
@@ -167,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/riwayat'
       fullPath: '/riwayat'
       preLoaderRoute: typeof RiwayatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profil': {
+      id: '/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof ProfilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pengaturan': {
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   KelolaUserRoute: KelolaUserRoute,
   PegawaiRoute: PegawaiRoute,
   PengaturanRoute: PengaturanRoute,
+  ProfilRoute: ProfilRoute,
   RiwayatRoute: RiwayatRoute,
   LaporanBaruRoute: LaporanBaruRoute,
   LaporanPreviewRoute: LaporanPreviewRoute,
