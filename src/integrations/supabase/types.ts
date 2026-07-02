@@ -17,48 +17,72 @@ export type Database = {
       laporan: {
         Row: {
           created_at: string
+          data_dinamis: Json
+          dokumentasi: Json
           hasil_kegiatan: string | null
           id: string
           jam: string | null
+          jenis_kegiatan: string | null
           nama_kegiatan: string
+          no_sp: string | null
           pelaksana: Json
           pembuat_nama: string | null
+          perihal_sp: string | null
           seksi: string | null
           status: string
+          status_spj: string
+          status_wa: string
           sumber_dana: string | null
           tanggal: string
+          tanggal_sp: string | null
           tempat: Json
           updated_at: string
           user_id: string | null
         }
         Insert: {
           created_at?: string
+          data_dinamis?: Json
+          dokumentasi?: Json
           hasil_kegiatan?: string | null
           id?: string
           jam?: string | null
+          jenis_kegiatan?: string | null
           nama_kegiatan: string
+          no_sp?: string | null
           pelaksana?: Json
           pembuat_nama?: string | null
+          perihal_sp?: string | null
           seksi?: string | null
           status?: string
+          status_spj?: string
+          status_wa?: string
           sumber_dana?: string | null
           tanggal: string
+          tanggal_sp?: string | null
           tempat?: Json
           updated_at?: string
           user_id?: string | null
         }
         Update: {
           created_at?: string
+          data_dinamis?: Json
+          dokumentasi?: Json
           hasil_kegiatan?: string | null
           id?: string
           jam?: string | null
+          jenis_kegiatan?: string | null
           nama_kegiatan?: string
+          no_sp?: string | null
           pelaksana?: Json
           pembuat_nama?: string | null
+          perihal_sp?: string | null
           seksi?: string | null
           status?: string
+          status_spj?: string
+          status_wa?: string
           sumber_dana?: string | null
           tanggal?: string
+          tanggal_sp?: string | null
           tempat?: Json
           updated_at?: string
           user_id?: string | null
@@ -69,6 +93,7 @@ export type Database = {
         Row: {
           aktif: boolean
           created_at: string
+          gelar: string | null
           id: string
           jabatan: string | null
           nama: string
@@ -81,6 +106,7 @@ export type Database = {
         Insert: {
           aktif?: boolean
           created_at?: string
+          gelar?: string | null
           id?: string
           jabatan?: string | null
           nama: string
@@ -93,6 +119,7 @@ export type Database = {
         Update: {
           aktif?: boolean
           created_at?: string
+          gelar?: string | null
           id?: string
           jabatan?: string | null
           nama?: string
@@ -155,15 +182,46 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_my_role: {
+        Args: never
+        Returns: Database["public"]["Enums"]["app_role"]
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "super_admin" | "admin" | "pegawai" | "pimpinan"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -290,6 +348,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["super_admin", "admin", "pegawai", "pimpinan"],
+    },
   },
 } as const

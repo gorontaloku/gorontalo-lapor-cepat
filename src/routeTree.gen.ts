@@ -10,16 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as RiwayatRouteImport } from './routes/riwayat'
+import { Route as ProfilRouteImport } from './routes/profil'
 import { Route as PengaturanRouteImport } from './routes/pengaturan'
 import { Route as PegawaiRouteImport } from './routes/pegawai'
+import { Route as KelolaUserRouteImport } from './routes/kelola-user'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LaporanSpjRouteImport } from './routes/laporan.spj'
+import { Route as LaporanPreviewRouteImport } from './routes/laporan.preview'
 import { Route as LaporanBaruRouteImport } from './routes/laporan.baru'
 
 const RiwayatRoute = RiwayatRouteImport.update({
   id: '/riwayat',
   path: '/riwayat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfilRoute = ProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PengaturanRoute = PengaturanRouteImport.update({
@@ -30,6 +39,11 @@ const PengaturanRoute = PengaturanRouteImport.update({
 const PegawaiRoute = PegawaiRouteImport.update({
   id: '/pegawai',
   path: '/pegawai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KelolaUserRoute = KelolaUserRouteImport.update({
+  id: '/kelola-user',
+  path: '/kelola-user',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -47,6 +61,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LaporanSpjRoute = LaporanSpjRouteImport.update({
+  id: '/laporan/spj',
+  path: '/laporan/spj',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LaporanPreviewRoute = LaporanPreviewRouteImport.update({
+  id: '/laporan/preview',
+  path: '/laporan/preview',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LaporanBaruRoute = LaporanBaruRouteImport.update({
   id: '/laporan/baru',
   path: '/laporan/baru',
@@ -57,29 +81,41 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/kelola-user': typeof KelolaUserRoute
   '/pegawai': typeof PegawaiRoute
   '/pengaturan': typeof PengaturanRoute
+  '/profil': typeof ProfilRoute
   '/riwayat': typeof RiwayatRoute
   '/laporan/baru': typeof LaporanBaruRoute
+  '/laporan/preview': typeof LaporanPreviewRoute
+  '/laporan/spj': typeof LaporanSpjRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/kelola-user': typeof KelolaUserRoute
   '/pegawai': typeof PegawaiRoute
   '/pengaturan': typeof PengaturanRoute
+  '/profil': typeof ProfilRoute
   '/riwayat': typeof RiwayatRoute
   '/laporan/baru': typeof LaporanBaruRoute
+  '/laporan/preview': typeof LaporanPreviewRoute
+  '/laporan/spj': typeof LaporanSpjRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
   '/dashboard': typeof DashboardRoute
+  '/kelola-user': typeof KelolaUserRoute
   '/pegawai': typeof PegawaiRoute
   '/pengaturan': typeof PengaturanRoute
+  '/profil': typeof ProfilRoute
   '/riwayat': typeof RiwayatRoute
   '/laporan/baru': typeof LaporanBaruRoute
+  '/laporan/preview': typeof LaporanPreviewRoute
+  '/laporan/spj': typeof LaporanSpjRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -87,38 +123,54 @@ export interface FileRouteTypes {
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/kelola-user'
     | '/pegawai'
     | '/pengaturan'
+    | '/profil'
     | '/riwayat'
     | '/laporan/baru'
+    | '/laporan/preview'
+    | '/laporan/spj'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/kelola-user'
     | '/pegawai'
     | '/pengaturan'
+    | '/profil'
     | '/riwayat'
     | '/laporan/baru'
+    | '/laporan/preview'
+    | '/laporan/spj'
   id:
     | '__root__'
     | '/'
     | '/auth'
     | '/dashboard'
+    | '/kelola-user'
     | '/pegawai'
     | '/pengaturan'
+    | '/profil'
     | '/riwayat'
     | '/laporan/baru'
+    | '/laporan/preview'
+    | '/laporan/spj'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
   DashboardRoute: typeof DashboardRoute
+  KelolaUserRoute: typeof KelolaUserRoute
   PegawaiRoute: typeof PegawaiRoute
   PengaturanRoute: typeof PengaturanRoute
+  ProfilRoute: typeof ProfilRoute
   RiwayatRoute: typeof RiwayatRoute
   LaporanBaruRoute: typeof LaporanBaruRoute
+  LaporanPreviewRoute: typeof LaporanPreviewRoute
+  LaporanSpjRoute: typeof LaporanSpjRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -128,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/riwayat'
       fullPath: '/riwayat'
       preLoaderRoute: typeof RiwayatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profil': {
+      id: '/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof ProfilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pengaturan': {
@@ -142,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/pegawai'
       fullPath: '/pegawai'
       preLoaderRoute: typeof PegawaiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kelola-user': {
+      id: '/kelola-user'
+      path: '/kelola-user'
+      fullPath: '/kelola-user'
+      preLoaderRoute: typeof KelolaUserRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -165,6 +231,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/laporan/spj': {
+      id: '/laporan/spj'
+      path: '/laporan/spj'
+      fullPath: '/laporan/spj'
+      preLoaderRoute: typeof LaporanSpjRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/laporan/preview': {
+      id: '/laporan/preview'
+      path: '/laporan/preview'
+      fullPath: '/laporan/preview'
+      preLoaderRoute: typeof LaporanPreviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/laporan/baru': {
       id: '/laporan/baru'
       path: '/laporan/baru'
@@ -179,21 +259,15 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   DashboardRoute: DashboardRoute,
+  KelolaUserRoute: KelolaUserRoute,
   PegawaiRoute: PegawaiRoute,
   PengaturanRoute: PengaturanRoute,
+  ProfilRoute: ProfilRoute,
   RiwayatRoute: RiwayatRoute,
   LaporanBaruRoute: LaporanBaruRoute,
+  LaporanPreviewRoute: LaporanPreviewRoute,
+  LaporanSpjRoute: LaporanSpjRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

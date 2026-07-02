@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { AppShell, RequireAuth } from "@/components/AppShell";
+import { RequireRole, useMyRole } from "@/lib/roles";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,7 +22,9 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/pegawai")({
   component: () => (
     <RequireAuth>
-      <PegawaiPage />
+      <RequireRole allowed={["super_admin", "admin"]}>
+        <PegawaiPage />
+      </RequireRole>
     </RequireAuth>
   ),
 });
@@ -29,6 +32,7 @@ export const Route = createFileRoute("/pegawai")({
 interface Pegawai {
   id: string;
   nama: string;
+  gelar: string | null;
   nip: string | null;
   pangkat: string | null;
   jabatan: string | null;
@@ -38,10 +42,12 @@ interface Pegawai {
 }
 
 const EMPTY: Omit<Pegawai, "id"> = {
-  nama: "", nip: "", pangkat: "", jabatan: "", seksi: "", urutan_hierarki: 999, aktif: true,
+  nama: "", gelar: "", nip: "", pangkat: "", jabatan: "", seksi: "", urutan_hierarki: 999, aktif: true,
 };
 
 function PegawaiPage() {
+  const { data: role } = useMyRole();
+  const canDelete = role === "super_admin";
   const qc = useQueryClient();
   const [q, setQ] = useState("");
   const [editOpen, setEditOpen] = useState(false);
@@ -170,7 +176,7 @@ function PegawaiPage() {
                   {filtered.map((p) => (
                     <tr key={p.id} className="border-t hover:bg-muted/30">
                       <td className="px-4 py-3 text-muted-foreground">{p.urutan_hierarki}</td>
-                      <td className="px-4 py-3 font-medium">{p.nama}</td>
+                      <td className="px-4 py-3 font-medium">{p.nama}{p.gelar ? `, ${p.gelar}` : ""}</td>
                       <td className="px-4 py-3 text-muted-foreground">{p.nip || "-"}</td>
                       <td className="px-4 py-3">{p.pangkat || "-"}</td>
                       <td className="px-4 py-3">{p.jabatan || "-"}</td>
@@ -189,9 +195,11 @@ function PegawaiPage() {
                           <Button size="icon" variant="ghost" onClick={() => openEdit(p)}>
                             <Pencil className="h-4 w-4" />
                           </Button>
-                          <Button size="icon" variant="ghost" onClick={() => setDeleteId(p.id)}>
-                            <Trash2 className="h-4 w-4 text-destructive" />
-                          </Button>
+                          {canDelete && (
+                            <Button size="icon" variant="ghost" onClick={() => setDeleteId(p.id)}>
+                              <Trash2 className="h-4 w-4 text-destructive" />
+                            </Button>
+                          )}
                         </div>
                       </td>
                     </tr>
@@ -213,6 +221,10 @@ function PegawaiPage() {
             <div className="sm:col-span-2">
               <Label>Nama Lengkap *</Label>
               <Input value={form.nama} onChange={(e) => setForm({ ...form, nama: e.target.value })} required />
+            </div>
+            <div>
+              <Label>Gelar</Label>
+              <Input value={form.gelar ?? ""} onChange={(e) => setForm({ ...form, gelar: e.target.value })} placeholder="S.KM / S.Pd., M.M." />
             </div>
             <div>
               <Label>NIP</Label>

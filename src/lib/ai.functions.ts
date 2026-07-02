@@ -6,12 +6,14 @@ import { createLovableAiGatewayProvider } from "./ai-gateway.server";
 const InputSchema = z.object({
   poin: z.string().min(1),
   namaKegiatan: z.string().optional(),
+  jenisKegiatan: z.string().optional(),
   hariTanggal: z.string().optional(),
   jam: z.string().optional(),
   tempat: z.array(z.string()).optional(),
   pelaksana: z.array(z.string()).optional(),
   seksi: z.string().optional(),
   sumberDana: z.string().optional(),
+  dataDinamis: z.record(z.string(), z.any()).optional(),
 });
 
 export const generateHasilKegiatan = createServerFn({ method: "POST" })
@@ -36,14 +38,23 @@ ATURAN WAJIB:
 - Paragraf kedua (dan opsional ketiga) menjelaskan: hasil yang dicapai, manfaat, serta tindak lanjut atau harapan.
 - Jaga panjang wajar (kurang lebih 120–220 kata total).`;
 
+    const dinamisText = data.dataDinamis
+      ? Object.entries(data.dataDinamis)
+          .filter(([, v]) => v !== null && v !== undefined && String(v).trim() !== "")
+          .map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join("; ") : v}`)
+          .join("\n")
+      : "";
+
     const meta = [
       data.namaKegiatan ? `Nama Kegiatan: ${data.namaKegiatan}` : null,
+      data.jenisKegiatan ? `Jenis Kegiatan: ${data.jenisKegiatan}` : null,
       data.hariTanggal ? `Hari/Tanggal: ${data.hariTanggal}` : null,
       data.jam ? `Jam: ${data.jam}` : null,
       data.tempat?.length ? `Tempat: ${data.tempat.join("; ")}` : null,
       data.pelaksana?.length ? `Pelaksana: ${data.pelaksana.join("; ")}` : null,
       data.seksi ? `Seksi: ${data.seksi}` : null,
       data.sumberDana ? `Sumber Dana: ${data.sumberDana}` : null,
+      dinamisText || null,
     ].filter(Boolean).join("\n");
 
     const userMsg = `DATA LAPORAN:
