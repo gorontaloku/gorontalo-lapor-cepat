@@ -1,3 +1,4 @@
+import logoBNN from "@/assets/bnn.png";
 import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
 import {
@@ -126,9 +127,11 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
           <Menu className="h-5 w-5" />
         </Button>
         <div className="flex items-center gap-2 min-w-0">
-          <div className="h-9 w-9 rounded-lg bg-gradient-brand flex items-center justify-center shrink-0">
-            <Shield className="h-4 w-4 text-primary-foreground" />
-          </div>
+          <img
+            src={logoBNN}
+            alt="Logo BNN"
+            className="h-9 w-9 object-contain shrink-0"
+          />
           <div className="leading-tight min-w-0">
             <div className="font-semibold text-sm truncate">E-Laporan BNN</div>
             <div className="text-[10px] text-muted-foreground truncate">BNN Kabupaten Gorontalo</div>
@@ -177,9 +180,11 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
       <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
         <SheetContent side="left" className="p-0 w-64 bg-sidebar text-sidebar-foreground border-sidebar-border">
           <div className="h-14 px-4 flex items-center gap-2 border-b border-sidebar-border">
-            <div className="h-8 w-8 rounded-lg bg-sidebar-primary flex items-center justify-center">
-              <Shield className="h-4 w-4 text-sidebar-primary-foreground" />
-            </div>
+            <img
+              src={logoBNN}
+              alt="Logo BNN"
+              className="h-8 w-8 object-contain"
+            />
             <div className="leading-tight">
               <div className="font-semibold text-sm">E-Laporan BNN</div>
               <div className="text-[10px] text-sidebar-foreground/70">BNN Kabupaten Gorontalo</div>

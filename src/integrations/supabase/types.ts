@@ -80,9 +80,12 @@ export type Database = {
           data_dinamis: Json
           dokumentasi: Json
           hasil_kegiatan: string | null
+          hasil_pelaksanaan: string | null
           id: string
           jam: string | null
           jenis_kegiatan: string | null
+          latar_belakang: string | null
+          maksud_tujuan: string | null
           nama_kegiatan: string
           no_sp: string | null
           pelaksana: Json
@@ -98,15 +101,19 @@ export type Database = {
           tempat: Json
           updated_at: string
           user_id: string | null
+          hasil_penutup: string | null
         }
         Insert: {
           created_at?: string
           data_dinamis?: Json
           dokumentasi?: Json
           hasil_kegiatan?: string | null
+          hasil_pelaksanaan?: string | null
           id?: string
           jam?: string | null
           jenis_kegiatan?: string | null
+          latar_belakang?: string | null
+          maksud_tujuan?: string | null
           nama_kegiatan: string
           no_sp?: string | null
           pelaksana?: Json
@@ -122,15 +129,19 @@ export type Database = {
           tempat?: Json
           updated_at?: string
           user_id?: string | null
+          hasil_penutup?: string | null
         }
         Update: {
           created_at?: string
           data_dinamis?: Json
           dokumentasi?: Json
           hasil_kegiatan?: string | null
+          hasil_pelaksanaan?: string | null
           id?: string
           jam?: string | null
           jenis_kegiatan?: string | null
+          latar_belakang?: string | null
+          maksud_tujuan?: string | null
           nama_kegiatan?: string
           no_sp?: string | null
           pelaksana?: Json
@@ -146,6 +157,7 @@ export type Database = {
           tempat?: Json
           updated_at?: string
           user_id?: string | null
+          hasil_penutup?: string | null
         }
         Relationships: [
           {

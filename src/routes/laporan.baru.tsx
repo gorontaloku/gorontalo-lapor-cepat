@@ -23,6 +23,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogD
 import { Check, ChevronsUpDown, Plus, Trash2, Sparkles, Save, Loader2, X, Upload, Image as ImageIcon, MessageCircle, FileText, ArrowUp, ArrowDown } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { generateSPJ } from "@/lib/ai.spj";
 
 const searchSchema = z.object({ id: z.string().optional() });
 
@@ -268,12 +269,46 @@ function LaporanBaru() {
   };
 
   const handleGenerateSPJ = async () => {
-    try {
-      const id = await save.mutateAsync();
-      await supabase.from("laporan").update({ status_spj: "sudah_dibuat" }).eq("id", id);
-      window.open(`/laporan/spj?id=${id}`, "_blank");
-    } catch (e) { toast.error("Gagal", { description: (e as Error).message }); }
-  };
+  try {
+
+    // 1. Simpan laporan
+    const id = await save.mutateAsync();
+
+    // 2. Generate AI
+    const hasilAI = await generateSPJ({
+      data: {
+        namaKegiatan: nama_kegiatan,
+        tanggal,
+        jam: jam || "",
+        tempat: tempat.join(", "),
+        jumlahPeserta: jumlahPeserta || undefined,
+        hasilSingkat: hasil,
+        sumberDana: sumberDana || "",
+      },
+    });
+    console.log("HASIL AI FRONTEND:", hasilAI);
+
+    // 3. Simpan hasil AI
+    await supabase
+      .from("laporan")
+      .update({
+        latar_belakang: hasilAI.latarBelakang,
+        maksud_tujuan: hasilAI.maksudTujuan,
+        hasil_pelaksanaan: hasilAI.hasilPelaksanaan,
+        hasil_penutup: hasilAI.penutup,
+        status_spj: "sudah_dibuat",
+      })
+      .eq("id", id);
+
+    // 4. Buka Preview
+    window.open(`/laporan/spj?id=${id}`, "_blank");
+
+  } catch (e) {
+    toast.error("Gagal", {
+      description: (e as Error).message,
+    });
+  }
+};
 
   const runAi = async () => {
     if (!aiPoin.trim()) return toast.error("Masukkan poin-poin terlebih dahulu");

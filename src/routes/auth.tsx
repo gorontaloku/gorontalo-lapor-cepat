@@ -1,3 +1,4 @@
+import logoBNN from "@/assets/bnn.png";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Shield, Loader2 } from "lucide-react";
@@ -47,9 +48,11 @@ function AuthPage() {
     <div className="min-h-screen grid md:grid-cols-2 bg-background">
       <div className="hidden md:flex flex-col justify-between p-10 bg-gradient-brand text-primary-foreground">
         <div className="flex items-center gap-3">
-          <div className="h-12 w-12 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
-            <Shield className="h-6 w-6" />
-          </div>
+          <img
+            src={logoBNN}
+            alt="Logo BNN"
+            className="h-16 w-16 object-contain"
+           />
           <div>
             <div className="font-semibold text-lg">E-Laporan</div>
             <div className="text-sm text-primary-foreground/80">BNN Kabupaten Gorontalo</div>
@@ -70,8 +73,12 @@ function AuthPage() {
         <Card className="w-full max-w-md shadow-elegant border-border/60">
           <CardContent className="p-6 md:p-8">
             <div className="md:hidden flex items-center gap-3 mb-6">
-              <div className="h-10 w-10 rounded-lg bg-gradient-brand flex items-center justify-center">
-                <Shield className="h-5 w-5 text-primary-foreground" />
+              <div className="flex items-center gap-3">
+                <img
+                  src={logoBNN}
+                  alt="Logo BNN"
+                  className="h-13 w-13 object-contain"
+                />
               </div>
               <div>
                 <div className="font-semibold">E-Laporan</div>

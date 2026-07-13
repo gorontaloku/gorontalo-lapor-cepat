@@ -94,3 +94,24 @@ export const JENIS_KEGIATAN = [
 ] as const;
 
 export type JenisKegiatan = (typeof JENIS_KEGIATAN)[number];
+
+export function formatHariTanggal(tanggal: string) {
+  return new Date(tanggal).toLocaleDateString("id-ID", {
+    weekday: "long",
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+export function tanggalPlusSatu(tanggal: string) {
+  const d = new Date(tanggal);
+
+  d.setDate(d.getDate() + 1);
+
+  return d.toLocaleDateString("id-ID", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+  });
+}
