@@ -54,7 +54,7 @@ function AuthPage() {
             className="h-16 w-16 object-contain"
            />
           <div>
-            <div className="font-semibold text-lg">E-Laporan</div>
+            <div className="font-semibold text-lg">E-LAPOR</div>
             <div className="text-sm text-primary-foreground/80">BNN Kabupaten Gorontalo</div>
           </div>
         </div>
