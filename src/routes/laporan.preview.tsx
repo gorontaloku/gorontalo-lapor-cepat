@@ -15,6 +15,7 @@ import {
 import { Copy, Send, Pencil, Sparkles, ArrowLeft, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { formatJam } from "@/lib/format";
 
 const searchSchema = z.object({ id: z.string() });
 
@@ -56,7 +57,7 @@ function PreviewPage() {
       nama_kegiatan: laporan.nama_kegiatan,
       jenis_kegiatan: laporan.jenis_kegiatan,
       tanggal: laporan.tanggal,
-      jam: laporan.jam,
+      jam: formatJam(laporan.jam),
       tempat: laporan.tempat,
       pelaksana: laporan.pelaksana,
       seksi: laporan.seksi,
@@ -67,21 +68,19 @@ function PreviewPage() {
 
   const text = edited ?? generatedText;
 
-  const dokPaths: { path: string }[] = laporan?.dokumentasi ?? [];
-
   useEffect(() => {
-    if (!dokPaths.length) { setPhotoUrls([]); return; }
-    (async () => {
-      const urls = await Promise.all(
-        dokPaths.map(async (d) => {
-          const { data } = await supabase.storage.from("dokumentasi").createSignedUrl(d.path, 60 * 60);
-          return data?.signedUrl ?? "";
-        }),
-      );
-      setPhotoUrls(urls);
-      setSelected(new Set(urls.map((_, i) => i).slice(0, 4)));
-    })();
-  }, [laporan?.id, dokPaths.length]);
+  if (!laporan?.dokumentasi) return;
+
+  const urls = laporan.dokumentasi.map((d: { path: string }) =>
+    supabase.storage
+      .from("dokumentasi")
+      .getPublicUrl(d.path)
+      .data.publicUrl
+  );
+
+  setPhotoUrls(urls);
+  setSelected(new Set(urls.map((_, i) => i).slice(0, 4)));
+  }, [laporan]);
 
   const toggleAll = () => {
     if (selected.size === Math.min(photoUrls.length, 4)) setSelected(new Set());

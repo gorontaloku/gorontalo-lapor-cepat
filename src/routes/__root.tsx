@@ -56,29 +56,42 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "E-Laporan BNN Kabupaten Gorontalo" },
-      {
-        name: "description",
-        content:
-          "Aplikasi resmi pembuatan laporan kegiatan harian pegawai BNN Kabupaten Gorontalo — cepat, profesional, terkirim ke WhatsApp dalam satu klik.",
-      },
-      { property: "og:title", content: "E-Laporan BNN Kabupaten Gorontalo" },
-      {
-        property: "og:description",
-        content: "Laporan kegiatan harian pegawai BNNK Gorontalo, cepat dan profesional.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-    links: [
-      { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
-    ],
-  }),
+ head: () => ({
+  meta: [
+    { charSet: "utf-8" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { title: "E-Laporan BNN Kabupaten Gorontalo" },
+    {
+      name: "description",
+      content:
+        "Aplikasi resmi pembuatan laporan kegiatan harian pegawai BNN Kabupaten Gorontalo — cepat, profesional, terkirim ke WhatsApp dalam satu klik.",
+    },
+
+    // Warna browser Android
+    { name: "theme-color", content: "#0b5ed7" },
+
+    { property: "og:title", content: "E-Laporan BNN Kabupaten Gorontalo" },
+    {
+      property: "og:description",
+      content: "Laporan kegiatan harian pegawai BNNK Gorontalo, cepat dan profesional.",
+    },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ],
+
+  links: [
+    { rel: "stylesheet", href: appCss },
+
+    // favicon browser
+    { rel: "icon", href: "/favicon.ico" },
+
+    // icon Apple
+    { rel: "apple-touch-icon", href: "/icon 180x180.png" },
+
+    // manifest PWA
+    { rel: "manifest", href: "/manifest.json" },
+  ],
+}),
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,

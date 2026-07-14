@@ -1,4 +1,5 @@
 import { format, parseISO } from "date-fns";
+import { formatJam } from "@/lib/format";
 import { id as idLocale } from "date-fns/locale/id";
 
 export interface Pelaksana {
@@ -35,11 +36,16 @@ export function namaWithGelar(p: Pelaksana): string {
   return gelar ? `${p.nama}, ${gelar}` : p.nama;
 }
 
+export function formatJam(jam?: string | null) {
+  if (!jam) return "-";
+  return jam.slice(0, 5);
+}
+
 export function buildLaporanText(l: LaporanData, opts?: { namaKepala?: string }): string {
   const kepala = opts?.namaKepala || "Kepala BNNK Gorontalo";
   const seksi = l.seksi || "-";
   const hari = formatTanggalIndo(l.tanggal);
-  const jam = l.jam ? `${l.jam} WITA` : "-";
+  const jam = l.jam ? `${formatJam(l.jam)} WITA` : "-";
   const tempat = l.tempat.length ? l.tempat.map((t) => `- ${t}`).join("\n") : "-";
   const pelaksana = l.pelaksana.length
     ? l.pelaksana
@@ -59,7 +65,6 @@ ${l.nama_kegiatan || "-"}
 *B. WAKTU & TEMPAT*
 Hari/Tanggal : ${hari}
 Jam : ${jam}
-Tempat :
 ${tempat}
 
 *C. PELAKSANA*
