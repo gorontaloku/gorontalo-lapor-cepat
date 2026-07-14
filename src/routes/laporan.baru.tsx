@@ -53,9 +53,13 @@ const todayStr = () => {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
 };
 
-async function signPhoto(path: string): Promise<string> {
-  const { data } = await supabase.storage.from("dokumentasi").createSignedUrl(path, 60 * 60);
-  return data?.signedUrl ?? "";
+
+function signPhoto(path: string): string {
+  const { data } = supabase.storage
+    .from("dokumentasi")
+    .getPublicUrl(path);
+
+  return data.publicUrl;
 }
 
 function LaporanBaru() {
@@ -142,8 +146,12 @@ function LaporanBaru() {
       setPerihalSp((data as any).perihal_sp ?? "");
       const dok = ((data as any).dokumentasi as { path: string }[]) ?? [];
       if (dok.length) {
-        const signed = await Promise.all(dok.map(async (d) => ({ path: d.path, url: await signPhoto(d.path) })));
-        setFoto(signed);
+        const photos = dok.map((d) => ({
+  path: d.path,
+  url: signPhoto(d.path),
+}));
+
+setFoto(photos);
       }
     })();
   }, [editId]);
@@ -192,7 +200,7 @@ function LaporanBaru() {
         const path = `${user.id}/${crypto.randomUUID()}.${ext}`;
         const { error } = await supabase.storage.from("dokumentasi").upload(path, file);
         if (error) { toast.error("Gagal upload", { description: error.message }); continue; }
-        uploaded.push({ path, url: await signPhoto(path) });
+        uploaded.push({ path, url: signPhoto(path) });
       }
       setFoto((prev) => [...prev, ...uploaded]);
       if (uploaded.length) toast.success(`${uploaded.length} foto diupload`);
@@ -219,7 +227,7 @@ function LaporanBaru() {
       if (!nama_kegiatan.trim()) throw new Error("Nama kegiatan wajib diisi");
       if (!jenis) throw new Error("Jenis kegiatan wajib dipilih");
       if (!tanggal) throw new Error("Tanggal wajib diisi");
-      if (foto.length < 1) throw new Error("Minimal 1 foto dokumentasi");
+      
       const payload: any = {
         user_id: user?.id ?? null,
         pembuat_nama: user?.user_metadata?.nama ?? user?.email ?? null,
