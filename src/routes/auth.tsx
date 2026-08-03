@@ -81,8 +81,8 @@ function AuthPage() {
                 />
               </div>
               <div>
-                <div className="font-semibold">E-Laporan</div>
-                <div className="text-xs text-muted-foreground">BNNK Gorontalo</div>
+                <div className="font-semibold">E-Lapor</div>
+                <div className="text-xs text-muted-foreground">BNN</div>
               </div>
             </div>
 
