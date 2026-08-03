@@ -13,7 +13,7 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
   head: () => ({
     meta: [
-      { title: "Masuk — E-Laporan BNN Kabupaten Gorontalo" },
+      { title: "Masuk — E-Lapor BNN" },
       { name: "description", content: "Portal resmi pegawai BNNK Gorontalo untuk pembuatan laporan kegiatan." },
     ],
   }),
